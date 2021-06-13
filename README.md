@@ -10,3 +10,4 @@ Even system manifests
 ## links
 
 - https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
+- https://k3d.io/ probably the fastest way to have a running kubernetes cluster up and running (k3s in docker)
