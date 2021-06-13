@@ -27,4 +27,17 @@ kubectl port-forward -n even svc/api-even-front 8080:80
 # you can check logs
 kubectl logs -n even service/api-even
 kubectl logs -n even service/api-even-front
+
+# if using a remote kubernetes
+k3d kubeconfig get test
+# this remote config to save in a local file
+KUBECONFIG=~/.kube/config:/c/temp/oo-k3d kubectl config view --flatten > ~/.kube/new_config
+# check file
+mv ~/.kube/new_config ~/.kube/config
+# be sure the server is reachable from local
+
+# you can list the contexts
+kubectl config get-contexts
+# and select one
+kubectl config set-context k3d-test
 ```
