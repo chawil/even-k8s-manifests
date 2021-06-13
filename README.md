@@ -40,6 +40,9 @@ mv ~/.kube/new_config ~/.kube/config
 kubectl config get-contexts
 # and select one
 kubectl config set-context k3d-test
+
+# get the logs from all replicas
+kubectl logs -n even -l app=api-even -f
 ```
 
 ## other knowledge
