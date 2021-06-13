@@ -6,3 +6,7 @@ Even system manifests
 
 - have manifests you can kubectl apply on a fresh k3s instance
 - have some helm to set up the useful stuff (certificate issuer, simple router like nginx, and more...)
+
+## links
+
+- https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
