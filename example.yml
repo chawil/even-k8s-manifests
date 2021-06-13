@@ -11,7 +11,12 @@ metadata:
   name: api-even
   namespace: even
 spec:
-  replicas: 1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: api-even
@@ -30,6 +35,14 @@ spec:
           ports:
             - name: http
               containerPort: 5000
+          startupProbe:
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 2
+            httpGet:
+              path: /even/0
+              port: http
 ---
 apiVersion: v1
 kind: Service
@@ -54,7 +67,12 @@ metadata:
   name: api-even-front
   namespace: even
 spec:
-  replicas: 1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: api-even-front
@@ -76,6 +94,14 @@ spec:
           ports:
             - name: http
               containerPort: 8080
+          startupProbe:
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 2
+            httpGet:
+              path: /home/
+              port: http
 ---
 apiVersion: v1
 kind: Service

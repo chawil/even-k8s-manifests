@@ -48,3 +48,7 @@ kubectl logs -n even -l app=api-even -f
 ## other knowledge
 
 - k3d uses docker, if your docker/host already use port 80, a LoadBalancer with port 80 will stay in pending mode
+- from https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
+  - livenessProbe: Indicates whether the container is running.
+  - readinessProbe: Indicates whether the container is ready to respond to requests.
+  - startupProbe: Indicates whether the application within the container is started.
