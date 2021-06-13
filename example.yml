@@ -83,7 +83,7 @@ metadata:
   name: api-even-front
   namespace: even
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: api-even-front
     tier: frontend

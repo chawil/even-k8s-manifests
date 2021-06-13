@@ -41,3 +41,7 @@ kubectl config get-contexts
 # and select one
 kubectl config set-context k3d-test
 ```
+
+## other knowledge
+
+- k3d uses docker, if your docker/host already use port 80, a LoadBalancer with port 80 will stay in pending mode
