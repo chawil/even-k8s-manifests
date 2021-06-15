@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-even-front
+spec:
+  template:
+    spec:
+      containers:
+        - name: api-even-front
+          env:
+            - name: NAMESPACE
+              value: TESTING

@@ -1,0 +1,117 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: even
+
+# api-even
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-even
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: api-even
+      tier: backend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: api-even
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: api-even
+          image: ghcr.io/chawil/api-even:6e8b62d433010f9a454a225aa72f605a85c0fe16
+          ports:
+            - name: http
+              containerPort: 5000
+          startupProbe:
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 2
+            httpGet:
+              path: /even/0
+              port: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-even
+spec:
+  type: ClusterIP
+  selector:
+    app: api-even
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+
+# api-even-front
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-even-front
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: api-even-front
+      tier: frontend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: api-even-front
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - name: api-even-front
+          image: ghcr.io/chawil/api-even-front:f30788df3eb4f52543365635b286d138ae2f6557
+          env:
+            - name: BACKEND_URL
+              value: http://api-even
+            - name: NAMESPACE
+              value: normal
+          ports:
+            - name: http
+              containerPort: 8080
+          startupProbe:
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 2
+            httpGet:
+              path: /home/
+              port: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-even-front
+spec:
+  type: ClusterIP
+  selector:
+    app: api-even-front
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http

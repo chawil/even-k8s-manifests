@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: even
+
+resources:
+  - base.yml
+
+images:
+  - name: ghcr.io/chawil/api-even
+    newTag: 6e8b62d433010f9a454a225aa72f605a85c0fe16
+  - name: ghcr.io/chawil/api-even-front
+    newTag: da93640b5505ed11611d8ba5862f06be5f625ac7
