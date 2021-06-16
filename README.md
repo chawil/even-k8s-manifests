@@ -53,6 +53,7 @@ kubectl logs -n even -l app=api-even -f
   - readinessProbe: Indicates whether the container is ready to respond to requests.
   - startupProbe: Indicates whether the application within the container is started.
 - NodePorts create a port to access a service from any node at port specified by NodePorts
+- Istio ?
 
 ## learning
 
