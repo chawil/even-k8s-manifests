@@ -52,3 +52,28 @@ kubectl logs -n even -l app=api-even -f
   - livenessProbe: Indicates whether the container is running.
   - readinessProbe: Indicates whether the container is ready to respond to requests.
   - startupProbe: Indicates whether the application within the container is started.
+- NodePorts create a port to access a service from any node at port specified by NodePorts
+
+## learning
+
+```yml
+# from https://medium.com/google-cloud/kubernetes-best-practices-8d5cd03446e2
+---
+apiVersion: v1
+kind: Namespace
+---
+apiVersion: v1
+kind: ConfigMap
+---
+apiVersion: v1
+kind: Secret
+---
+apiVersion: v1
+kind: Service
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+---
+apiVersion: v1
+kind: Service
+```
